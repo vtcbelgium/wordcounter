@@ -6,6 +6,19 @@ export interface TextStats {
   paragraphs: number;
   readingTimeMinutes: number;
   speakingTimeMinutes: number;
+  ariScore: number;
+  readingLevel: string;
+}
+
+const NO_READING_LEVEL = "N/A";
+
+// Standard ARI chart: the score, rounded up, gives the US grade band
+function ariReadingLevel(ariScore: number): string {
+  const band = Math.ceil(ariScore);
+  if (band <= 1) return "Kindergarten";
+  if (band === 2) return "Grades 1-2";
+  if (band <= 12) return `Grade ${band}`;
+  return band === 13 ? "College" : "Professional";
 }
 
 export function analyzeText(text: string): TextStats {
@@ -23,6 +36,8 @@ export function analyzeText(text: string): TextStats {
       paragraphs: 0,
       readingTimeMinutes: 0,
       speakingTimeMinutes: 0,
+      ariScore: 0,
+      readingLevel: NO_READING_LEVEL,
     };
   }
 
@@ -49,6 +64,12 @@ export function analyzeText(text: string): TextStats {
   // Speaking time (standard average: 130 words per minute)
   const speakingTimeMinutes = words > 0 ? Math.max(1, Math.ceil(words / 130)) : 0;
 
+  // ARI counts letters and digits only; text without any has no meaningful score
+  const letters = trimmed.match(/[\p{L}\p{N}]/gu)?.length ?? 0;
+  const ari = letters > 0 ? 4.71 * (letters / words) + 0.5 * (words / sentences) - 21.43 : 0;
+  const ariScore = Math.round(Math.max(0, ari) * 10) / 10;
+  const readingLevel = letters > 0 ? ariReadingLevel(ariScore) : NO_READING_LEVEL;
+
   return {
     words,
     characters,
@@ -57,5 +78,7 @@ export function analyzeText(text: string): TextStats {
     paragraphs: Math.max(1, paragraphs),
     readingTimeMinutes,
     speakingTimeMinutes,
+    ariScore,
+    readingLevel,
   };
 }
