@@ -9,6 +9,8 @@ const sentencesEl = document.getElementById("metric-sentences");
 const paragraphsEl = document.getElementById("metric-paragraphs");
 const readingTimeEl = document.getElementById("metric-reading-time");
 const speakingTimeEl = document.getElementById("metric-speaking-time");
+const readabilityEl = document.getElementById("metric-readability");
+const readingLevelEl = document.getElementById("metric-reading-level");
 const clearBtn = document.getElementById("btn-clear");
 const copyBtn = document.getElementById("btn-copy");
 
@@ -23,6 +25,8 @@ function updateStats(): void {
   if (paragraphsEl) paragraphsEl.textContent = stats.paragraphs.toLocaleString();
   if (readingTimeEl) readingTimeEl.textContent = `${stats.readingTimeMinutes} min`;
   if (speakingTimeEl) speakingTimeEl.textContent = `${stats.speakingTimeMinutes} min`;
+  if (readabilityEl) readabilityEl.textContent = stats.ariScore.toFixed(1);
+  if (readingLevelEl) readingLevelEl.textContent = stats.readingLevel;
 }
 
 if (input) {
