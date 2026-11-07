@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word Counter — Free, Instant & Private Text Statistics</title>
+    <meta
+      name="description"
+      content="Fast, private client-side word and character counter. Count words, characters, sentences, paragraphs, reading time, and speaking time instantly in your browser."
+    />
+    <link rel="canonical" href="https://wordcounter.othrys.be/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wordcounter.othrys.be/" />
+    <meta property="og:title" content="Word Counter — Free, Instant & Private Text Statistics" />
+    <meta
+      property="og:description"
+      content="Count words, characters, sentences, paragraphs and reading time directly in your browser without uploading your text."
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://wordcounter.othrys.be/" />
+    <meta name="twitter:title" content="Word Counter — Free, Instant & Private Text Statistics" />
+    <meta
+      name="twitter:description"
+      content="Count words, characters, sentences, paragraphs and reading time directly in your browser without uploading your text."
+    />
+
+    <!-- JSON-LD WebApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Word Counter",
+        "url": "https://wordcounter.othrys.be/",
+        "description": "Fast, private client-side word and character counter for measuring text metrics instantly.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="/" class="brand">
+          <span>WordCounter</span>
+          <span class="brand-badge">OTHRYS</span>
+        </a>
+        <span class="privacy-badge">🔒 100% In-Browser · Zero Telemetry</span>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Word &amp; Character Counter</h1>
+        <p>Instant, precise text analytics with zero server uploads.</p>
+      </section>
+
+      <section class="editor-card" aria-label="Text Analysis Editor">
+        <label for="input-text" class="sr-only">Enter or paste text to analyze</label>
+        <textarea
+          id="input-text"
+          placeholder="Paste or write your text here to count words, characters, sentences, and estimated reading time…"
+          spellcheck="true"
+        ></textarea>
+
+        <div class="editor-actions">
+          <div class="action-buttons">
+            <button id="btn-clear" class="btn-secondary" type="button">Clear Text</button>
+            <button id="btn-copy" class="btn-secondary" type="button">Copy</button>
+          </div>
+          <span class="privacy-badge">No data leaves your device</span>
+        </div>
+
+        <div class="metrics-grid" role="region" aria-live="polite" aria-atomic="true">
+          <div class="metric-card">
+            <div class="metric-val" id="metric-words">0</div>
+            <div class="metric-lbl">Words</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" id="metric-characters">0</div>
+            <div class="metric-lbl">Characters</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" id="metric-chars-nospace">0</div>
+            <div class="metric-lbl">No Spaces</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" id="metric-sentences">0</div>
+            <div class="metric-lbl">Sentences</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" id="metric-paragraphs">0</div>
+            <div class="metric-lbl">Paragraphs</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" id="metric-reading-time">0 min</div>
+            <div class="metric-lbl">Reading Time</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val" id="metric-speaking-time">0 min</div>
+            <div class="metric-lbl">Speaking Time</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-cards">
+        <article class="feature-card">
+          <h2>Strict Client-Side Privacy</h2>
+          <p>
+            Unlike typical online text tools, your text is never transmitted over the internet or logged by remote APIs. Everything runs in-memory on your CPU.
+          </p>
+        </article>
+        <article class="feature-card">
+          <h2>Accurate Unicode Code Points</h2>
+          <p>
+            Full multi-byte Unicode and emoji character awareness prevents surrogate-pair miscounts common in older legacy word counters.
+          </p>
+        </article>
+        <article class="feature-card">
+          <h2>Reading &amp; Speaking Benchmarks</h2>
+          <p>
+            Calibrated on standard silent reading speeds (200 WPM) and clear speaking pacing (130 WPM) for speech drafts and essay planning.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Part of the <a href="https://othrys.be">OTHRYS</a> Sovereign Fleet of Lightweight Web Tools.
+      </p>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

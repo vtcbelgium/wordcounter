@@ -1,0 +1,24 @@
+{
+  "$schema": "https://othrys.be/schemas/blueprint.v1.json",
+  "blueprint_id": "blueprint.wordcounter.v1",
+  "schema_version": "1.0.0",
+  "oros_id": "wordcounter",
+  "name": "WordCounter",
+  "title": "Free Word & Character Counter with Reading Time",
+  "domain": "wordcounter.othrys.be",
+  "thesis": "Ultra-fast, distraction-free, 100% client-side word and character counter for measuring text metrics instantly with zero cloud telemetry and zero cookies.",
+  "single_job": "Calculate word counts, characters, sentences, paragraphs, and reading/speaking times instantly in browser.",
+  "runtime": {
+    "type": "spa-edge",
+    "stack": "vanilla-typescript-vite",
+    "hosting": "github-pages",
+    "cname": "wordcounter.othrys.be"
+  },
+  "constraints": {
+    "zero_cloud_upload": true,
+    "zero_cookies": true,
+    "zero_analytics_trackers": true,
+    "zero_third_party_fonts": true,
+    "offline_first": true
+  }
+}
