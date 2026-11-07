@@ -1,5 +1,10 @@
 import "./style.css";
 import { analyzeText } from "./counter";
+import { initThemeController } from "./theme";
+import { initModals } from "./modals";
+import { initCookieModal } from "./cookies";
+import { initVaultDrawer } from "./vault";
+import "./toast";
 
 const input = document.getElementById("input-text") as HTMLTextAreaElement | null;
 const wordsEl = document.getElementById("metric-words");
@@ -57,5 +62,9 @@ if (copyBtn && input) {
   });
 }
 
-// Initial calculation
+// Initial calculation & sovereign fleet modules
 updateStats();
+initThemeController();
+initModals();
+initCookieModal();
+initVaultDrawer();
