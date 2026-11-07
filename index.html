@@ -45,6 +45,40 @@
         }
       }
     </script>
+
+    <!-- JSON-LD FAQPage: keep in sync with the visible FAQ section -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the Automated Readability Index (ARI)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Automated Readability Index estimates how hard a text is to read and maps the score to a US school grade. It is calculated as 4.71 × (letters and digits ÷ words) + 0.5 × (words ÷ sentences) − 21.43, so longer words and longer sentences raise the score."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does WPM mean for reading and speaking time?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "WPM stands for words per minute. Reading time assumes 200 WPM and speaking time assumes 130 WPM. Both estimates round up to the next full minute, so any text shows at least 1 minute."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How are Unicode characters and emoji counted?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Characters are counted as Unicode code points, so a single emoji such as 😀 counts as 1 instead of 2. Emoji built from several code points, such as flags and family emoji, count once per code point. The Characters total includes whitespace, while No Spaces leaves it out."
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <header class="navbar">
@@ -135,6 +169,28 @@
             Calibrated on standard silent reading speeds (200 WPM) and clear speaking pacing (130 WPM) for speech drafts and essay planning.
           </p>
         </article>
+      </section>
+
+      <section class="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>What is the Automated Readability Index (ARI)?</h3>
+          <p>
+            The Automated Readability Index estimates how hard a text is to read and maps the score to a US school grade. It is calculated as 4.71 × (letters and digits ÷ words) + 0.5 × (words ÷ sentences) − 21.43, so longer words and longer sentences raise the score.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3>What does WPM mean for reading and speaking time?</h3>
+          <p>
+            WPM stands for words per minute. Reading time assumes 200 WPM and speaking time assumes 130 WPM. Both estimates round up to the next full minute, so any text shows at least 1 minute.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3>How are Unicode characters and emoji counted?</h3>
+          <p>
+            Characters are counted as Unicode code points, so a single emoji such as 😀 counts as 1 instead of 2. Emoji built from several code points, such as flags and family emoji, count once per code point. The Characters total includes whitespace, while No Spaces leaves it out.
+          </p>
+        </div>
       </section>
     </main>
 
