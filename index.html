@@ -122,7 +122,7 @@
               </svg>
             </span>
             <span class="brand-main">Word<strong>Counter</strong></span>
-            <span class="sovereign-status-badge" title="No registration, tracking, or cloud backend required">Sovereign</span>
+            <span class="sovereign-status-badge" title="No registration or cloud backend required">Sovereign</span>
           </div>
           <small class="brand-signature">powered by OTHRYS</small>
         </a>
@@ -300,7 +300,7 @@
 
       <div class="footer-bottom">
         <span>© 2026 OTHRYS. Built to be useful, private, and durable.</span>
-        <span class="sovereign-tag">100% Client-Side · Zero Cookies · Zero Cloud Tracking</span>
+        <span class="sovereign-tag">100% Client-Side · Zero Cookies · Anonymous Page Counts Only</span>
       </div>
     </footer>
 
@@ -313,7 +313,7 @@
       <div class="dialog-body">
         <p>WordCounter is an independent sovereign utility engineered by OTHRYS. It runs 100% in your browser sandbox with zero cloud reliance.</p>
         <p>
-          <strong>Mission:</strong> To provide durable, private, and permanent web utilities without subscriptions, advertising, tracking, or cloud surveillance.
+          <strong>Mission:</strong> To provide durable, private, and permanent web utilities without subscriptions, advertising, user profiling, or cloud surveillance.
         </p>
         <p>
           <strong>Architecture:</strong> Client-side Unicode-aware text metrics processing. Zero server roundtrips.
@@ -393,10 +393,10 @@
       <div class="dialog-body">
         <div id="cookie-audit-result"></div>
         <p style="margin-top: 14px;">
-          WordCounter does not use cookies, trackers, or remote telemetry. No cookie banner is required because zero non-essential data is stored.
+          WordCounter sets no cookies and uses no third-party trackers. It sends one anonymous page-view ping (page path, country and a daily-rotating hash; no IP address, no cookie, no stored identifier) to stats.othrys.be. Your text never leaves your browser. The ping is skipped if your browser sends Do Not Track or Global Privacy Control.
         </p>
         <p>
-          <strong>Legal Basis:</strong> Under EU ePrivacy Directive 2002/58/EC and GDPR Article 5(3), consent banners are only required when placing tracking cookies. Because WordCounter sets 0 tracking cookies, you are completely free from cookie banners.
+          <strong>Data kept:</strong> counts per page, country and referrer host, deleted after 90 days.
         </p>
       </div>
       <div class="dialog-actions">
@@ -426,5 +426,6 @@ if ('serviceWorker' in navigator) {
     <span>Open QuickPercent</span> &rarr;
   </a>
 </div>
+  <script src="/stats.js" defer></script>
 </body>
 </html>
