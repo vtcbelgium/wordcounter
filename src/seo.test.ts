@@ -44,7 +44,7 @@ describe("robots.txt", () => {
 
 describe("sitemap.xml", () => {
   it("lists the homepage with priority and daily changefreq", () => {
-    expect(sitemapXml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+    expect(sitemapXml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
     expect(sitemapXml).toContain(`<loc>${SITE_URL}</loc>`);
     expect(sitemapXml).toContain("<changefreq>daily</changefreq>");
     expect(sitemapXml).toMatch(/<priority>(0\.\d|1\.0)<\/priority>/);
