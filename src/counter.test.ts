@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { analyzeText } from "./counter";
+import { analyzeText, computeTopKeywords } from "./counter";
 
 describe("analyzeText", () => {
   it("handles empty text", () => {
@@ -88,5 +88,84 @@ describe("analyzeText", () => {
   it("throws TypeError on non-string input", () => {
     // @ts-expect-error testing invalid argument
     expect(() => analyzeText(null)).toThrow(TypeError);
+  });
+});
+
+describe("computeTopKeywords", () => {
+  it("returns empty array for empty text", () => {
+    expect(computeTopKeywords("")).toEqual([]);
+  });
+
+  it("returns empty array for whitespace-only text", () => {
+    expect(computeTopKeywords("   \n\t  ")).toEqual([]);
+  });
+
+  it("returns empty array when limit is 0 or negative", () => {
+    expect(computeTopKeywords("hello world", 0)).toEqual([]);
+    expect(computeTopKeywords("hello world", -1)).toEqual([]);
+  });
+
+  it("counts words case-insensitively", () => {
+    const result = computeTopKeywords("Hello HELLO hello world");
+    expect(result).toHaveLength(2);
+    expect(result[0]).toEqual({ word: "hello", count: 3, densityPct: 75.0 });
+    expect(result[1]).toEqual({ word: "world", count: 1, densityPct: 25.0 });
+  });
+
+  it("filters out stop words", () => {
+    const result = computeTopKeywords("The quick brown fox and the lazy dog");
+    const words = result.map(e => e.word);
+    expect(words).toContain("quick");
+    expect(words).toContain("brown");
+    expect(words).toContain("fox");
+    expect(words).toContain("lazy");
+    expect(words).not.toContain("the");
+    expect(words).not.toContain("and");
+  });
+
+  it("filters out tokens shorter than 2 characters", () => {
+    // Single-character tokens are dropped; two-character tokens are kept
+    const result = computeTopKeywords("a i x y cat");
+    expect(result).toEqual([{ word: "cat", count: 1, densityPct: 100.0 }]);
+  });
+
+  it("computes density percentage correctly", () => {
+    // 10 total words, "hello" appears 3 times -> 3/10 = 30%
+    const result = computeTopKeywords("hello hello hello world test one two three four five");
+    expect(result[0]).toEqual({ word: "hello", count: 3, densityPct: 30.0 });
+  });
+
+  it("rounds density to 1 decimal place", () => {
+    // 7 total words, "test" appears 2 times -> 2/7 = 28.571... -> 28.6
+    const result = computeTopKeywords("test test one two three four five");
+    expect(result[0].densityPct).toBe(28.6);
+  });
+
+  it("sorts by count descending, then alphabetically", () => {
+    const result = computeTopKeywords("zebra apple banana apple zebra banana apple");
+    // "apple" has count 3; "banana" and "zebra" both have count 2 and tie-break alphabetically
+    expect(result[0]).toEqual({ word: "apple", count: 3, densityPct: 42.9 });
+    expect(result[1]).toEqual({ word: "banana", count: 2, densityPct: 28.6 });
+    expect(result[2]).toEqual({ word: "zebra", count: 2, densityPct: 28.6 });
+  });
+
+  it("respects the limit parameter", () => {
+    const result = computeTopKeywords("one two three four five six seven eight", 3);
+    expect(result).toHaveLength(3);
+  });
+
+  it("handles Unicode letters correctly", () => {
+    const result = computeTopKeywords("café café naïve naive résumé");
+    const words = result.map(e => e.word);
+    expect(words).toContain("café");
+    expect(words).toContain("naïve");
+    expect(words).toContain("résumé");
+  });
+
+  it("returns empty array for non-string input", () => {
+    // @ts-expect-error testing invalid argument
+    expect(computeTopKeywords(null)).toEqual([]);
+    // @ts-expect-error testing invalid argument
+    expect(computeTopKeywords(undefined)).toEqual([]);
   });
 });
