@@ -10,6 +10,12 @@ export interface TextStats {
   readingLevel: string;
 }
 
+export interface KeywordEntry {
+  word: string;
+  count: number;
+  densityPct: number;
+}
+
 const NO_READING_LEVEL = "N/A";
 
 // Standard ARI chart: the score, rounded up, gives the US grade band
@@ -20,6 +26,12 @@ function ariReadingLevel(ariScore: number): string {
   if (band <= 12) return `Grade ${band}`;
   return band === 13 ? "College" : "Professional";
 }
+
+const STOP_WORDS = new Set([
+  "the", "and", "for", "that", "with", "this", "from",
+  "are", "was", "were", "have", "has", "not", "but",
+  "you", "your"
+]);
 
 export function analyzeText(text: string): TextStats {
   if (typeof text !== "string") {
@@ -81,4 +93,56 @@ export function analyzeText(text: string): TextStats {
     ariScore,
     readingLevel,
   };
+}
+
+export function computeTopKeywords(text: string, limit = 5): KeywordEntry[] {
+  if (typeof text !== "string") {
+    return [];
+  }
+
+  const trimmed = text.trim();
+  if (!trimmed || limit <= 0) {
+    return [];
+  }
+
+  // Tokenize Unicode letters/digits case-insensitively
+  const tokens = trimmed.match(/[\p{L}\p{N}]+/gu);
+  if (!tokens) {
+    return [];
+  }
+
+  // Count words, filter short tokens and stop words
+  const wordCounts = new Map<string, number>();
+  let totalWords = 0;
+
+  for (const token of tokens) {
+    const lowerToken = token.toLowerCase();
+    if (lowerToken.length < 2 || STOP_WORDS.has(lowerToken)) {
+      continue;
+    }
+    totalWords++;
+    wordCounts.set(lowerToken, (wordCounts.get(lowerToken) || 0) + 1);
+  }
+
+  if (totalWords === 0) {
+    return [];
+  }
+
+  // Build entries with density percentage
+  const entries: KeywordEntry[] = [];
+  for (const [word, count] of wordCounts) {
+    const densityPct = Math.round((count / totalWords) * 1000) / 10;
+    entries.push({ word, count, densityPct });
+  }
+
+  // Sort by count descending, then alphabetically by word
+  entries.sort((a, b) => {
+    if (b.count !== a.count) {
+      return b.count - a.count;
+    }
+    return a.word.localeCompare(b.word);
+  });
+
+  // Slice to limit
+  return entries.slice(0, limit);
 }
