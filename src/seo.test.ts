@@ -3,6 +3,8 @@ import { describe, expect, it } from "vitest";
 import indexHtml from "../index.html?raw";
 import robotsTxt from "../public/robots.txt?raw";
 import sitemapXml from "../public/sitemap.xml?raw";
+import agentsTxt from "../public/.well-known/agents.txt?raw";
+import rootAgentsTxt from "../public/agents.txt?raw";
 
 const SITE_URL = "https://wordcounter.othrys.be/";
 
@@ -108,5 +110,27 @@ describe("google ecosystem hygiene", () => {
     expect(indexHtml).toContain('<meta property="og:image:width" content="1200" />');
     expect(indexHtml).toContain('<meta property="og:image:height" content="630" />');
     expect(indexHtml).toContain('property="og:image:alt"');
+  });
+});
+
+describe("agents.txt manifests", () => {
+  it("/.well-known/agents.txt exists and has required fields", () => {
+    expect(agentsTxt).toContain("Name: WordCounter");
+    expect(agentsTxt).toContain("URL: https://wordcounter.othrys.be/");
+    expect(agentsTxt).toContain("Description: Fast, private client-side word and character counter");
+    expect(agentsTxt).toContain("LLMs-Txt: https://wordcounter.othrys.be/llms.txt");
+    expect(agentsTxt).toContain("Sitemap: https://wordcounter.othrys.be/sitemap.xml");
+    expect(agentsTxt).toContain("Protocol: public-read-only");
+    expect(agentsTxt).toContain("Privacy: zero-tracking-cookies, local-browser-execution, zero-cloud-uploads");
+  });
+
+  it("/agents.txt exists and has required fields", () => {
+    expect(rootAgentsTxt).toContain("Name: WordCounter");
+    expect(rootAgentsTxt).toContain("URL: https://wordcounter.othrys.be/");
+    expect(rootAgentsTxt).toContain("Description: Fast, private client-side word and character counter");
+    expect(rootAgentsTxt).toContain("LLMs-Txt: https://wordcounter.othrys.be/llms.txt");
+    expect(rootAgentsTxt).toContain("Sitemap: https://wordcounter.othrys.be/sitemap.xml");
+    expect(rootAgentsTxt).toContain("Protocol: public-read-only");
+    expect(rootAgentsTxt).toContain("Privacy: zero-tracking-cookies, local-browser-execution, zero-cloud-uploads");
   });
 });

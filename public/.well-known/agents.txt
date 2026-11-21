@@ -1,0 +1,7 @@
+Name: WordCounter
+URL: https://wordcounter.othrys.be/
+Description: Fast, private client-side word and character counter. Count words, characters, sentences, paragraphs, reading time, and readability score entirely in the browser with zero server uploads.
+LLMs-Txt: https://wordcounter.othrys.be/llms.txt
+Sitemap: https://wordcounter.othrys.be/sitemap.xml
+Protocol: public-read-only
+Privacy: zero-tracking-cookies, local-browser-execution, zero-cloud-uploads
